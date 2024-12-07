@@ -1,9 +1,8 @@
 package com.group.soccerdemo2.group
 
-import com.group.soccerdemo2.exceptions.GroupNotExits
+import com.group.soccerdemo2.exceptions.EntityNotExits
 import com.group.soccerdemo2.exceptions.MoreTenUsersException
 import com.group.soccerdemo2.exceptions.UserAlreadyOwner
-import com.group.soccerdemo2.exceptions.UserNotExits
 import com.group.soccerdemo2.user.UserRepository
 import com.group.soccerdemo2.user.UserService
 import org.springframework.stereotype.Service
@@ -17,7 +16,7 @@ class GroupService(
 )  : IGroupService {
     override fun getGroupById(id: UUID): Optional<GroupEntity> {
         val groupOptional = groupRepository.findById(id)
-        if (groupOptional.isEmpty) throw  GroupNotExits()
+        if (groupOptional.isEmpty) throw  EntityNotExits("El grupo no existe")
         return groupOptional
     }
 
@@ -27,7 +26,7 @@ class GroupService(
 
     override fun createGroup(group: GroupEntity,idOwnerUser : UUID): GroupEntity {
         val ownerUser = userService.getUserById(idOwnerUser)
-            .orElseThrow { UserNotExits() }
+            .orElseThrow { EntityNotExits("El usuario no existe") }
 
         if(ownerUser.isOwner) throw UserAlreadyOwner()
         group.listUsers.add(ownerUser)
@@ -52,7 +51,7 @@ class GroupService(
         //verificar que exista el usuario
         //verificar que el grupo no se mayor de 10
         val groupOptional = groupRepository.findById(idGroup)
-        if(groupOptional.isEmpty) throw GroupNotExits()
+        if(groupOptional.isEmpty) throw EntityNotExits("El grupo no existe")
         val userOptional = userService.getUserById(idUser)
         val group = groupOptional.get()
         val user = userOptional.get()

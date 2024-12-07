@@ -10,7 +10,7 @@ import java.lang.RuntimeException
 @RestControllerAdvice
 class RestResponseExceptionHandler : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler()
+    @ExceptionHandler(EntityNotExits::class)
     fun exceptionHandler(runtimeException: RuntimeException) : ResponseEntity<ErrorMessageDto> {
         val error = ErrorMessageDto(HttpStatus.NOT_FOUND,runtimeException.message!!)
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error)

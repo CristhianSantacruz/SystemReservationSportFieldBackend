@@ -17,9 +17,9 @@ data class ReservationEntity(
     var reservationState: ReservationState,
     @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(referencedColumnName = "id_group")
-    var group: GroupEntity,
+    var group: GroupEntity?,
     @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(referencedColumnName = "id_sportfield")
-    var sportField : SportFieldEntity,
+    var sportField : SportFieldEntity?,
 
     )

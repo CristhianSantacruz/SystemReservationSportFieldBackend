@@ -8,6 +8,6 @@ interface IReservationService {
     fun getAllReservations(): List<ReservationEntity>
     fun getAllReservationsByState(state: String) : List<ReservationEntity>
     fun createReservation(reservation : ReservationEntity) : ReservationEntity
-    fun updateReservation(id: Long,reservation : ReservationEntity) : ReservationEntity
+    fun updateReservation(id: Long,reservationDto : ReservationDto) : ReservationEntity
     fun deleteReservationById(id : Long) : Boolean
 }

@@ -1,6 +1,6 @@
 package com.group.soccerdemo2.user
 
-import com.group.soccerdemo2.exceptions.UserNotExits
+import com.group.soccerdemo2.exceptions.EntityNotExits
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -8,7 +8,7 @@ import java.util.*
 class UserService(private val userRepository: UserRepository): UserInterfaceService {
     override fun getUserById(userId: UUID): Optional<UserEntity> {
         val userOptional = userRepository.findById(userId)
-        if(userOptional.isEmpty){throw UserNotExits()}
+        if(userOptional.isEmpty){throw EntityNotExits("EL usuario no existe")}
         return userOptional
     }
 
